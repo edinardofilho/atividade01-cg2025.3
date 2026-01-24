@@ -1,31 +1,23 @@
 import pygame
 import sys
-import math
-from SetPixel import SetPixel
+from RetaBresenham import RetaBresenham
 
-tela = SetPixel(800, 600, (0, 0, 0))  # Fundo preto 
+largura, altura = 800, 600
 
-def desenha_seno(superficie, cor):
-    amplitude = superficie.getHeight() // 4
-    centro = superficie.getHeight() // 2
-    frequencia = 2*math.pi / superficie.getWidth()
+def desenha_linha(x1, y1, x2, y2, cor):
+    reta = RetaBresenham(largura, altura)
+    reta.draw_line(x1, y1, x2, y2, cor)
 
-    for x in range(superficie.getWidth()):
-        y = centro - int(amplitude * math.sin(frequencia * x))
-
-        SetPixel.setPixel(superficie, x, y, cor)
+vermelho = (255, 0, 0)
+desenha_linha(100, 100, 200, 200, vermelho)
+pygame.display.flip()
 
 running = True
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-
-    vermelho = (255, 0, 0)
-    desenha_seno(tela, vermelho)
-
-    pygame.display.flip()
-
+    
 pygame.quit()
 sys.exit()
 
