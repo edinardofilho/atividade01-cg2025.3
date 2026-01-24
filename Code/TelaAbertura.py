@@ -1,3 +1,4 @@
+import pygame
 from FloodFill import FloodFill
 
 class TelaAbertura:
