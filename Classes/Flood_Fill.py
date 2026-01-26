@@ -31,3 +31,15 @@ class Flood_Fill:
 
     def desenhar_poligono(self, vertices, cor):
         self.poligono.desenhar_poligono(vertices, cor)
+
+    def set_pixel(self, x, y, cor):
+        Poligono(self.superficie).set_pixel(x, y, cor)
+
+    def get_pixel(self, x, y):
+        return Poligono(self.superficie).get_pixel(x, y)
+
+    def largura(self):
+        return Poligono(self.superficie).largura()
+
+    def altura(self):
+        return Poligono(self.superficie).altura()    

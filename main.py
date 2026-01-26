@@ -21,7 +21,7 @@ while rodando:
         
     tela.fill(azul_claro) # Preenche a tela com azul claro
 
-    
+    tela_abertura.tela_abertura()
 
     pygame.display.flip()
 
