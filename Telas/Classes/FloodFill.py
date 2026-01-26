@@ -1,6 +1,6 @@
 from Poligono import Poligono
 
-class Flood_Fill:
+class FloodFill:
     def __init__(self, superficie):
         self.superficie = superficie
         self.poligono = Poligono(superficie)
@@ -17,7 +17,7 @@ class Flood_Fill:
             if not (0 <= x < largura and 0 <= y < altura):
                 continue
 
-            cor_atual = superficie.get_at((x, y))[:3]
+            cor_atual = self.superficie.get_at((x, y))[:3]
 
             if cor_atual == cor_borda or cor_atual == cor_preenchimento:
                 continue

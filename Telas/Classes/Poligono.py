@@ -1,4 +1,4 @@
-from Reta_Bresenham import Reta_Bresenham
+from RetaBresenham import Reta_Bresenham
 class Poligono:
     def __init__(self, superficie):
         self.superficie = superficie
