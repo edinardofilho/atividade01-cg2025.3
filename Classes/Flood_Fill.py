@@ -1,6 +1,6 @@
-from Poligono import Poligono
+from Classes.Poligono import Poligono
 
-class FloodFill:
+class Flood_Fill:
     def __init__(self, superficie):
         self.superficie = superficie
         self.poligono = Poligono(superficie)
@@ -28,3 +28,6 @@ class FloodFill:
             pilha.append((x - 1, y))
             pilha.append((x, y + 1))
             pilha.append((x, y - 1))
+
+    def desenhar_poligono(self, vertices, cor):
+        self.poligono.desenhar_poligono(vertices, cor)

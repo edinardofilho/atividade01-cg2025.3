@@ -1,4 +1,4 @@
-class SetPixel:
+class Set_Pixel:
     def __init__(self, superficie):
         self.superficie = superficie
 
