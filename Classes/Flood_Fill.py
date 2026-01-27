@@ -1,45 +1,26 @@
-from Classes.Poligono import Poligono
+from Classes.Figura import Figura
+from Classes.Pixel import set_pixel
 
-class Flood_Fill:
-    def __init__(self, superficie):
-        self.superficie = superficie
-        self.poligono = Poligono(superficie)
+def flood_fill(figura: Figura, x, y, cor_preenchimento, cor_borda):
+    largura = figura.Largura()
+    altura = figura.Altura()
 
-    def flood_fill(self, x, y, cor_preenchimento, cor_borda):
-        largura = self.poligono.largura()
-        altura = self.poligono.altura()
+    pilha = [(x, y)]
 
-        pilha = [(x, y)]
+    while pilha:
+        x, y = pilha.pop()
 
-        while pilha:
-            x, y = pilha.pop()
+        if not (0 <= x < largura and 0 <= y < altura):
+            continue
 
-            if not (0 <= x < largura and 0 <= y < altura):
-                continue
+        cor_atual = figura._superficie.get_at((x, y))[:3]
 
-            cor_atual = self.superficie.get_at((x, y))[:3]
+        if cor_atual == cor_borda or cor_atual == cor_preenchimento:
+            continue
 
-            if cor_atual == cor_borda or cor_atual == cor_preenchimento:
-                continue
+        set_pixel(figura._superficie, x, y, cor_preenchimento)
 
-            self.poligono.set_pixel(x, y, cor_preenchimento)
-
-            pilha.append((x + 1, y))
-            pilha.append((x - 1, y))
-            pilha.append((x, y + 1))
-            pilha.append((x, y - 1))
-
-    def desenhar_poligono(self, vertices, cor):
-        self.poligono.desenhar_poligono(vertices, cor)
-
-    def set_pixel(self, x, y, cor):
-        Poligono(self.superficie).set_pixel(x, y, cor)
-
-    def get_pixel(self, x, y):
-        return Poligono(self.superficie).get_pixel(x, y)
-
-    def largura(self):
-        return Poligono(self.superficie).largura()
-
-    def altura(self):
-        return Poligono(self.superficie).altura()    
+        pilha.append((x + 1, y))
+        pilha.append((x - 1, y))
+        pilha.append((x, y + 1))
+        pilha.append((x, y - 1))
