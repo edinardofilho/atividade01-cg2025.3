@@ -1,6 +1,5 @@
 Equipe:
   Francisco Edinardo de Freitas Filho - francisco.edinardo@aluno.uece.br
-  Italo Costa De Oliveira Cavalcante - italinho.cavalcante@aluno.uece.br
   Marcos Aurelio Soares Pinto Filho - mar.aurelio@aluno.uece.br
 
 Descrição do trabalho:
