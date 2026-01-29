@@ -1,9 +1,8 @@
-from Classes.Figura import Figura
-from Classes.Pixel import set_pixel
+from Classes.Pixel import set_pixel, get_pixel
 
-def flood_fill(figura: Figura, x, y, cor_preenchimento, cor_borda):
-    largura = figura.Largura()
-    altura = figura.Altura()
+def boundary_fill(superficie, x, y, cor_preenchimento, cor_borda):
+    largura = superficie.get_width()
+    altura = superficie.get_height()
 
     pilha = [(x, y)]
 
@@ -13,12 +12,12 @@ def flood_fill(figura: Figura, x, y, cor_preenchimento, cor_borda):
         if not (0 <= x < largura and 0 <= y < altura):
             continue
 
-        cor_atual = figura._superficie.get_at((x, y))[:3]
+        cor_atual = get_pixel(superficie, x, y)[:3]
 
         if cor_atual == cor_borda or cor_atual == cor_preenchimento:
             continue
 
-        set_pixel(figura._superficie, x, y, cor_preenchimento)
+        set_pixel(superficie, x, y, cor_preenchimento)
 
         pilha.append((x + 1, y))
         pilha.append((x - 1, y))

@@ -3,8 +3,7 @@ from Classes.Pixel import set_pixel
 
 class Elipse(Figura):
     def __init__(self, superficie, centro, semi_eixo_x, semi_eixo_y):
-        super().__init__(superficie)
-        self._centro = centro
+        super().__init__(superficie, centro)
         self._semi_eixo_x = semi_eixo_x
         self._semi_eixo_y = semi_eixo_y
 

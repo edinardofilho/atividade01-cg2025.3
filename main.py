@@ -1,6 +1,8 @@
 import pygame
 import sys
 from Classes.Tela_Abertura import Tela_Abertura
+from Classes.Fase import Fase
+from Classes.Context_Window import Context_Window
 sys.setrecursionlimit(10**7)
 
 pygame.init()
@@ -10,18 +12,17 @@ azul_claro = (100, 149, 237)
 tela = pygame.display.set_mode((largura, altura))
 pygame.display.set_caption("ZLog Ltda")
 
-tela_abertura = Tela_Abertura(tela)
-
+contexto = Context_Window(Fase(tela))#Tela_Abertura(tela))
 rodando = True
 
 while rodando:
-    for evento in pygame.event.get():
-        if evento.type == pygame.QUIT:
-            rodando = False
+    #for evento in pygame.event.get():
+    #    if evento.type == pygame.QUIT:
+    #        rodando = False
         
     tela.fill(azul_claro) # Preenche a tela com azul claro
 
-    tela_abertura.Tela_abertura()
+    contexto.Update(pygame.event.get())
 
     pygame.display.flip()
 
