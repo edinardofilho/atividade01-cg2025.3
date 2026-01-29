@@ -3,18 +3,23 @@ import math
 
 class GameObject:
     def __init__(self):
+        self._world = matriz_identidade_2()
         self._pos = [0, 0]
-        self._world = matriz_identidade()
+        self._speed = [0, 0]
+        self._accel = [0, 0]
 
     def Update(self):
-        pass
+        self._speed[0] += self._accel[0]
+        self._speed[1] += self._accel[1]
+        self._pos[0] += self._speed[0]
+        self._pos[1] += self._speed[1]
 
-    def Escala(escala: float):
+    def Escala(self, escala: float):
         m_escala = [[escala, 0],
                     [0, escala]]
-        self._world = multiplica_matrizes(m_escala, self._world)
+        self._world = multiplica_matrizes_2(m_escala, self._world)
 
-    def Transladar(x: float, y: float):
+    def Transladar(self, x: float, y: float):
         self._pos[0] += x
         self._pos[1] += y
 
@@ -24,7 +29,4 @@ class GameObject:
         s = math.sin(rad)
         m_rotacao = [[c, -s],
                      [s, c]]
-        self._world = multiplica_matrizes(m_rotacao, self._world)
-
-    def Get_pos():
-        return (round(pos[0]), round(pos[1]))
+        self._world = multiplica_matrizes_2(m_rotacao, self._world)

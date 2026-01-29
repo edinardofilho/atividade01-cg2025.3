@@ -1,5 +1,6 @@
 from Classes.Reta_Bresenham import Reta_Bresenham
 from Classes.Figura import Figura
+from Classes.Clipping import clipping_linha
 from Classes.Pixel import set_pixel
 import math
 
@@ -15,11 +16,11 @@ class Poligono(Figura):
         for i in range(num_vertices):
             x0, y0 = (self._vertices[i][0] + self._centro[0], self._vertices[i][1] + self._centro[1])
             x1, y1 = (self._vertices[(i + 1) % num_vertices][0] + self._centro[0], self._vertices[(i + 1) % num_vertices][1] + self._centro[1])
-            Reta_Bresenham(self._superficie, x0, y0, x1, y1).Desenhar_reta(cor)
+            Reta_Bresenham(self._superficie, math.floor(x0), math.floor(y0), math.floor(x1), math.floor(y1)).Desenhar_reta(cor)
 
     def Scan_fill(self, cor):
         n = len(self._vertices)
-        pontos = [ (v[0] + self._centro[0], v[1] + self._centro[1]) for v in self._vertices ]
+        pontos = [ (math.floor(v[0] + self._centro[0]), math.floor(v[1] + self._centro[1])) for v in self._vertices ]
         ys = [p[1] for p in pontos]
         y_min = min(ys)
         y_max = max(ys)
@@ -43,3 +44,19 @@ class Poligono(Figura):
                     x_fim = int(round(intersecoes_x[i + 1]))
                     for x in range(x_inicio, x_fim + 1):
                         set_pixel(self._superficie, x, y, cor)
+
+    def Desenhar_recortado(self, janela, cor):
+        pontos = [ (math.floor(v[0] + self._centro[0]), math.floor(v[1] + self._centro[1])) for v in self._vertices ]
+        xmin, ymin, xmax, ymax = janela
+        n = len(pontos)
+
+        for i in range(n):
+            x0, y0 = pontos[i]
+            x1, y1 = pontos[(i + 1) % n]
+
+            visivel, rx0, ry0, rx1, ry1 = clipping_linha(
+                self._superficie, x0, y0, x1, y1, xmin, ymin, xmax, ymax
+            )
+
+            if visivel:
+                Reta_Bresenham(self._superficie, int(rx0), int(ry0), int(rx1), int(ry1)).Desenhar_reta(cor)

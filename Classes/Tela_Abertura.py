@@ -3,6 +3,7 @@ from Classes.Circulo import Circulo
 from Classes.Elipse import Elipse
 from Classes.Poligono import Poligono
 from Classes.Botao import Botao
+from Classes.Fase import Fase
 from Classes.Boundary_Fill import boundary_fill
 import math
 
@@ -21,6 +22,7 @@ turquesa = (72, 209, 204)
 branco_azulado = (240, 248, 255) 
 branco = (255, 255, 255)
 azul_teal = (0, 128, 128)
+azul_claro = (100, 149, 237)
 branco_trigo = (245, 222, 179)
 blanque = (255, 250, 240)
 amarelo = (224, 172, 27)
@@ -30,9 +32,18 @@ preto = (0, 0, 0)
 class Tela_Abertura(Contexto):
     def __init__(self, superficie):
         self._superficie = superficie
-        self._start = Botao(self._superficie, botao_pos, botao_alt, botao_lar, "Começar", None)
+        self._start = Botao(self._superficie, botao_pos, botao_alt, botao_lar, "Começar", Fase(self._superficie))
 
     def Update(self, eventos):
+        for evento in eventos:
+            botao_status = self._start.Checar_mouse(evento)
+            if botao_status == None:
+                continue
+            else:
+                self._start = Botao(self._superficie, botao_pos, botao_alt, botao_lar, "Recomeçar", Fase(self._superficie))
+                return botao_status
+
+        self._superficie.fill(azul_claro)
         self.Desenhar_circulo(Circulo(self._superficie, circulo_centro, circulo_raio), amarelo, branco)
         self.Desenhar_caixa(Poligono(self._superficie, vertices_caixa_z), cinza_escuro, turquesa)
         self.Desenhar_z(branco_azulado, blanque)
@@ -40,13 +51,7 @@ class Tela_Abertura(Contexto):
         self.Desenhar_log(branco_trigo, branco)
         self.Desenhar_ltda(branco_trigo, branco)
         self._start.Desenhar(laranja, preto)
-        print("A")
-        for evento in eventos:
-            botao_status = self._start.Checar_mouse(evento)
-            if botao_status == "n":
-                continue
-            else:
-                return botao_status
+
         return self
 
     def Desenhar_circulo(self, circulo, cor_preenchimento, cor_borda):
