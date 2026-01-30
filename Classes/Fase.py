@@ -11,6 +11,7 @@ verde = (20, 128, 20)
 vermelho = (128, 20, 20)
 amarelo = (128, 128, 20)
 escuro = (20, 20, 20)
+
 class Fase(Contexto):
     def __init__(self, superficie):
         self._superficie = superficie

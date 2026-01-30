@@ -1,4 +1,5 @@
 import pygame
+import sys
 
 class Context_Window:
     def __init__(self, contexto_inicial):
@@ -14,4 +15,6 @@ class Context_Window:
         else:
             self._pilha_contexto.append(novo_contexto)
         if not self._pilha_contexto:
-            quit()
+            pygame.quit()
+            sys.exit()
+        return self

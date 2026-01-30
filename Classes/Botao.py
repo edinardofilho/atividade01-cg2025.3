@@ -28,5 +28,7 @@ class Botao:
             if evento.button == 1:
                 mouse_pos = pygame.mouse.get_pos()
                 if self._pos[0] - math.floor(self._largura/2) <= mouse_pos[0] <= self._pos[0] + math.floor(self._largura/2) and self._pos[1] - math.floor(self._altura/2) <= mouse_pos[1] <= self._pos[1] + math.floor(self._altura/2):
+                    if self._res == None:
+                        self._res = True
                     return self._res
         return None

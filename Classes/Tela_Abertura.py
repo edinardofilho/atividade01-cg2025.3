@@ -6,6 +6,8 @@ from Classes.Botao import Botao
 from Classes.Fase import Fase
 from Classes.Boundary_Fill import boundary_fill
 import math
+import pygame
+import sys
 
 vertices_caixa_z = [(100, 100), (400, 100), (400, 500), (100, 500)]
 vertices_caixa_log = [(400, 100), (700, 100), (700, 500), (400, 500)]
@@ -13,9 +15,13 @@ vertices_caixa_log = [(400, 100), (700, 100), (700, 500), (400, 500)]
 circulo_centro = (700, 100)
 circulo_raio = 50
 
-botao_pos = (550, 500)
-botao_lar = 150
-botao_alt = 50
+botao_start_pos = (550, 500)
+botao_start_lar = 150
+botao_start_alt = 50
+
+botao_exit_pos = (250, 500)
+botao_exit_lar = 150
+botao_exit_alt = 50
 
 cinza_escuro = (47, 79, 79)    
 turquesa = (72, 209, 204)
@@ -32,16 +38,22 @@ preto = (0, 0, 0)
 class Tela_Abertura(Contexto):
     def __init__(self, superficie):
         self._superficie = superficie
-        self._start = Botao(self._superficie, botao_pos, botao_alt, botao_lar, "Começar", Fase(self._superficie))
+        self._start = Botao(self._superficie, botao_start_pos, botao_start_alt, botao_start_lar, "Começar", Fase(self._superficie))
+        self._exit = Botao(self._superficie, botao_exit_pos, botao_exit_alt, botao_exit_lar, "Sair", None)
 
     def Update(self, eventos):
         for evento in eventos:
-            botao_status = self._start.Checar_mouse(evento)
-            if botao_status == None:
+            botao_comecar = self._start.Checar_mouse(evento)
+            botao_sair = self._exit.Checar_mouse(evento)
+            if botao_comecar == None and botao_sair == None:
                 continue
+            elif botao_sair == True:
+                pygame.quit()
+                sys.exit()
             else:
-                self._start = Botao(self._superficie, botao_pos, botao_alt, botao_lar, "Recomeçar", Fase(self._superficie))
-                return botao_status
+                self._start = Botao(self._superficie, botao_start_pos, botao_start_alt, botao_start_lar, "Recomeçar", Fase(self._superficie))
+                self._exit = Botao(self._superficie, botao_exit_pos, botao_exit_alt, botao_exit_lar, "Sair", None)
+                return botao_comecar
 
         self._superficie.fill(azul_claro)
         self.Desenhar_circulo(Circulo(self._superficie, circulo_centro, circulo_raio), amarelo, branco)
@@ -51,6 +63,7 @@ class Tela_Abertura(Contexto):
         self.Desenhar_log(branco_trigo, branco)
         self.Desenhar_ltda(branco_trigo, branco)
         self._start.Desenhar(laranja, preto)
+        self._exit.Desenhar(laranja, preto)
 
         return self
 

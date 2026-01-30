@@ -7,7 +7,7 @@ class Caixa(GameObject):
     def __init__(self, superficie, path=None):
         super().__init__()
         self._superficie = superficie
-        self._vertices = [ (-10, -10), (-10, 10), (10, 10), (10, -10) ]
+        self._vertices = [ (-20, -20), (-20, 20), (20, 20), (20, -20) ]
         self._figura = Poligono(self._superficie, self._vertices)
         if path != None:
             self._textura = Textura(self._superficie, self._vertices, path, [(0, 0), (0, 1), (1, 1), (1, 0)])
