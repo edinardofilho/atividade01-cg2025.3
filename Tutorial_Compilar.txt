@@ -1,0 +1,5 @@
+Foi criado um arquivo "Execute.sh", como script executável no terminal. 
+
+Foi alterada a permissão da execução, também através do terminal.
+
+Com isso, apenas um duplo clique no arquivo, faz com que o comando seja executado e o jogo abra.
